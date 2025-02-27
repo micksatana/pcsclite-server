@@ -1,0 +1,42 @@
+{
+  "name": "pcsclite-server",
+  "version": "0.0.1",
+  "description": "Store smartcard data in its memory and provide the data via web interface",
+  "type": "module",
+  "main": "dist/lib.mjs",
+  "exports": {
+    "import": "./dist/lib.mjs",
+    "require": "./dist/lib.cjs"
+  },
+  "scripts": {
+    "dev": "vite-node src/index.ts",
+    "coverage": "vitest --no-watch --coverage --coverage.reporter=text",
+    "test": "vitest",
+    "test:ci": "vitest --no-watch --coverage.enabled=true --coverage.reporter=json-summary",
+    "build": "rollup -c",
+    "prepare": "npm run build",
+    "start": "node dist/index.cjs"
+  },
+  "keywords": [],
+  "author": "Satana Charuwichitratana",
+  "license": "MIT",
+  "packageManager": "pnpm@10.5.0",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "28.0.2",
+    "@rollup/plugin-json": "6.1.0",
+    "@rollup/plugin-node-resolve": "16.0.0",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "12.1.2",
+    "@types/supertest": "6.0.2",
+    "@vitest/coverage-v8": "3.0.7",
+    "glob": "11.0.1",
+    "rollup": "4.34.8",
+    "supertest": "7.0.0",
+    "tslib": "2.8.1",
+    "vite-node": "3.0.7",
+    "vitest": "3.0.7"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1"
+  }
+}
