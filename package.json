@@ -37,6 +37,12 @@
     "vitest": "3.0.7"
   },
   "dependencies": {
-    "fastify": "^5.2.1"
+    "fastify": "^5.2.1",
+    "pcsclite": "1.0.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "pcsclite"
+    ]
   }
 }

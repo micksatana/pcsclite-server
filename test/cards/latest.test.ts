@@ -1,10 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import req from 'supertest';
 
-import { server } from '../../src/external/server';
+import { createServer } from '../../src/external/server';
 import { memoryAdapter, ThaiIdCard } from '../../src';
 
 describe('GET /cards/latest', () => {
+  const server = createServer();
   const card1 = {
     uid: '1234567890123',
     citizenId: '1234567890123',

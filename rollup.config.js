@@ -22,6 +22,7 @@ export default defineConfig({
   plugins: [
     typescript({
       exclude: ['test/**/*.test.ts', 'vitest.config.ts'],
+      allowSyntheticDefaultImports: true,
     }),
     json(),
     resolve(),

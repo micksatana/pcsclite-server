@@ -28,3 +28,16 @@ s -->> w: { data }
 deactivate w
 deactivate s
 ```
+
+## Usage
+
+```ts
+import { initializePcsc, createServer } from 'pcsclite-server';
+
+const server = createServer();
+
+// Modify Fastify server instance as needed
+// Then initialize pcsclite using the server instance
+initializePcsc(server);
+
+```
