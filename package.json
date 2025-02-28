@@ -12,7 +12,14 @@
     "build": "rollup -c",
     "prepare": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "api",
+    "pcsc",
+    "smartcard",
+    "thai id card",
+    "thai national id card",
+    "web server"
+  ],
   "author": "Satana Charuwichitratana",
   "license": "MIT",
   "packageManager": "pnpm@10.5.0",
