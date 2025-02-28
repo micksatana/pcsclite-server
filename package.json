@@ -3,19 +3,14 @@
   "version": "0.0.1",
   "description": "Store smartcard data in its memory and provide the data via web interface",
   "type": "module",
-  "main": "dist/lib.mjs",
-  "exports": {
-    "import": "./dist/lib.mjs",
-    "require": "./dist/lib.cjs"
-  },
+  "main": "dist/lib.cjs",
   "scripts": {
-    "dev": "vite-node src/index.ts",
+    "dev": "vite-node src/dev.ts",
     "coverage": "vitest --no-watch --coverage --coverage.reporter=text",
     "test": "vitest",
     "test:ci": "vitest --no-watch --coverage.enabled=true --coverage.reporter=json-summary",
     "build": "rollup -c",
-    "prepare": "npm run build",
-    "start": "node dist/index.cjs"
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "Satana Charuwichitratana",
@@ -25,7 +20,6 @@
     "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
     "@rollup/plugin-node-resolve": "16.0.0",
-    "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.2",
     "@types/supertest": "6.0.2",
     "@vitest/coverage-v8": "3.0.7",
@@ -38,7 +32,9 @@
   },
   "dependencies": {
     "fastify": "^5.2.1",
-    "pcsclite": "1.0.1"
+    "iconv-lite": "0.6.3",
+    "pcsclite": "1.0.1",
+    "thai-id-card-reader": "1.0.51"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

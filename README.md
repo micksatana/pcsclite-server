@@ -2,10 +2,6 @@
 
 This server can be deployed on a device connected with a smartcard reader. It will provide a web server serving with the latest card information it read.
 
-## Security
-
-It should be used with a Chrome Extension which provide a service worker embeded a piece of code to interact with the local pcsclite-server. You should implement a security layer between the pcsclite-server and your Chrome Extension so to prevent malicious actor in your network.
-
 ## Implementation
 
 ```mermaid
@@ -24,7 +20,7 @@ ce -->> w: Embed code to interact with localhost
 s ->> s: Process and save in-memory
 w ->> s: GET /cards/latest
 activate w
-s -->> w: { data }
+s -->> w: { uid, citizenId, ... }
 deactivate w
 deactivate s
 ```
@@ -40,4 +36,9 @@ const server = createServer();
 // Then initialize pcsclite using the server instance
 initializePcsc(server);
 
+server.listen({ port: 3000, host: '0.0.0.0' });
 ```
+
+## Security
+
+It should be used with a Chrome Extension which provide a service worker embeded a piece of code to interact with the local pcsclite-server. You should implement a security layer between the pcsclite-server and your Chrome Extension so to prevent malicious actor in your network.

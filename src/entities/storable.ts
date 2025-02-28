@@ -1,3 +1,3 @@
 export interface Storable<IdentifiableCard> {
-  set: (card: IdentifiableCard) => Promise<void>;
+  set: (card?: IdentifiableCard) => Promise<void>;
 }
