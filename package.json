@@ -21,6 +21,9 @@
     "web server"
   ],
   "author": "Satana Charuwichitratana",
+  "repository": {
+    "url": "https://github.com/micksatana/pcsclite-server"
+  },
   "license": "MIT",
   "packageManager": "pnpm@10.5.2",
   "devDependencies": {
