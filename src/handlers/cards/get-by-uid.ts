@@ -1,8 +1,8 @@
-import type { FastifyRequest, RouteHandlerMethod } from 'fastify';
+import type { FastifyRequest } from 'fastify';
 
 import type { MemoryAdapter } from '../../adapters';
 
-export const handleGetByUid: RouteHandlerMethod = async (
+export const handleGetByUid = async (
   request: FastifyRequest<{ Params: { uid: string } }>,
   reply
 ) => {
