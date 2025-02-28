@@ -22,7 +22,7 @@
   ],
   "author": "Satana Charuwichitratana",
   "license": "MIT",
-  "packageManager": "pnpm@10.5.0",
+  "packageManager": "pnpm@10.5.2",
   "devDependencies": {
     "@rollup/plugin-commonjs": "28.0.2",
     "@rollup/plugin-json": "6.1.0",
