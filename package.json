@@ -9,8 +9,7 @@
     "coverage": "vitest --no-watch --coverage --coverage.reporter=text",
     "test": "vitest",
     "test:ci": "vitest --no-watch --coverage.enabled=true --coverage.reporter=json-summary",
-    "build": "rollup -c",
-    "postinstall": "npm run build"
+    "build": "rollup -c"
   },
   "keywords": [
     "api",
