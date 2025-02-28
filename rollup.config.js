@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
 
 export default defineConfig({
   input: 'src/index.ts',
@@ -23,6 +24,13 @@ export default defineConfig({
     json(),
     resolve(),
     commonjs(),
+    terser({
+      format: {
+        comments: false,
+      },
+      compress: true,
+      mangle: false,
+    }),
   ],
   external: ['crypto', 'fs', 'path', 'pcsclite'],
 });

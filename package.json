@@ -9,7 +9,8 @@
     "coverage": "vitest --no-watch --coverage --coverage.reporter=text",
     "test": "vitest",
     "test:ci": "vitest --no-watch --coverage.enabled=true --coverage.reporter=json-summary",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "api",
@@ -25,24 +26,23 @@
   },
   "license": "MIT",
   "packageManager": "pnpm@10.5.2",
-  "devDependencies": {
+  "peerDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/supertest": "^6.0.2",
     "@vitest/coverage-v8": "^3.0.7",
+    "fastify": "^5.2.1",
     "glob": "^11.0.1",
+    "iconv-lite": "^0.6.3",
+    "pcsclite": "^1.0.1",
     "rollup": "^4.34.8",
     "supertest": "^7.0.0",
     "tslib": "^2.8.1",
     "vite-node": "^3.0.7",
     "vitest": "^3.0.7"
-  },
-  "peerDependencies": {
-    "fastify": "^5.2.1",
-    "iconv-lite": "^0.6.3",
-    "pcsclite": "^1.0.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
