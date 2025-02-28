@@ -1,6 +1,6 @@
 {
   "name": "pcsclite-server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Store smartcard data in its memory and provide the data via web interface",
   "type": "module",
   "main": "dist/lib.cjs",
