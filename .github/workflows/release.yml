@@ -1,0 +1,45 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bump_version:
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+      - name: Print package.json
+        run: cat ./package.json
+      - name: Automated Version Bump
+        id: versioning
+        uses: phips28/gh-action-bump-version@v11.0.7
+        with:
+          tag-prefix: 'v'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tagged version
+        run: echo "${{ steps.versioning.outputs.newTag }}"
+    outputs:
+      new_tag: ${{ steps.versioning.outputs.newTag }}
+
+  release:
+    name: Release production
+    needs: bump_version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out tagged version
+        run: echo "${{ needs.bump_version.outputs.new_tag }}"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.bump_version.outputs.new_tag }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
