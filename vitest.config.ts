@@ -6,8 +6,8 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['src/**/index.ts', 'src/entities/**/*.ts'],
+      include: ['src/**/*.ts'],
+      exclude: ['src/**/index.ts', 'src/dev.ts', 'src/entities/**/*.ts'],
       reporter: ['lcov', 'json', 'json-summary'],
     },
   },
