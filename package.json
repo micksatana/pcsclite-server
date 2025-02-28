@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:ci": "vitest --no-watch --coverage.enabled=true --coverage.reporter=json-summary",
     "build": "rollup -c",
-    "prepare": "npm run build"
+    "postinstall": "npm run build"
   },
   "keywords": [
     "api",
