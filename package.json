@@ -4,6 +4,7 @@
   "description": "Store smartcard data in its memory and provide the data via web interface",
   "type": "module",
   "main": "dist/lib.cjs",
+  "types": "src/index.ts",
   "scripts": {
     "dev": "vite-node src/dev.ts",
     "coverage": "vitest --no-watch --coverage --coverage.reporter=text",
