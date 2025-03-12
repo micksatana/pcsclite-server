@@ -7,7 +7,16 @@ import { delay } from '../utils/delay';
 import { parseApduCommandError } from '../entities';
 import { decode as decoder } from 'iconv-lite';
 
-const onTransmitResponseDataWith =
+export const onDisconnectCallbackWith =
+  (server: FastifyInstance) => (reader: CardReader) => () => {
+    server.log.info(`${reader.name}: disconnected due to an error`);
+  };
+
+export const rejectTimeoutWith = (reject) => () => {
+  reject('Timeout');
+};
+
+export const onTransmitResponseDataWith =
   (server: FastifyInstance) =>
   (reader: CardReader) =>
   (protocol: number) =>
@@ -15,21 +24,17 @@ const onTransmitResponseDataWith =
     resolve: (data: Buffer<ArrayBufferLike>) => void,
     reject: (reason: string) => void
   ) =>
-  (error: Error, data: Buffer<ArrayBufferLike>) => {
+  (error: Error | null, data: Buffer<ArrayBufferLike>) => {
     if (error) {
       server.log.error(`${reader.name}: ${error.message}`);
-      reader.disconnect(() => {
-        server.log.info(`${reader.name}: disconnected due to an error`);
-      });
+      reader.disconnect(onDisconnectCallbackWith(server)(reader));
     } else {
       const field = data.subarray(0, data.length - 2);
       const [sw1, sw2] = data.subarray(-2);
 
       if (sw1 === 0x90 && sw2 === 0x00) {
         // Command successfully executed (OK).
-        const resolveTimeout = setTimeout(() => {
-          reject('Timeout');
-        }, 3000);
+        const resolveTimeout = setTimeout(rejectTimeoutWith(reject), 3000);
         resolve(field);
         clearTimeout(resolveTimeout);
         return;
@@ -62,7 +67,7 @@ const onTransmitResponseDataWith =
     }
   };
 
-const transmitWith =
+export const transmitWith =
   (server: FastifyInstance) =>
   (reader: CardReader) =>
   (protocol: number) =>
@@ -77,10 +82,10 @@ const transmitWith =
     });
   };
 
-const onReaderConnectedWith =
+export const onReaderConnectedWith =
   (server: FastifyInstance) =>
   (reader: CardReader) =>
-  async (error: Error, protocol: number) => {
+  async (error: Error | null, protocol: number) => {
     server.log.info(`${reader.name}: ${protocol}`);
     if (error) {
       server.log.error(`${reader.name}: ${error.message}`);
@@ -97,19 +102,22 @@ const onReaderConnectedWith =
       }
     }
   };
-const onReaderDisconnectedWith =
-  (server: FastifyInstance) => (reader: CardReader) => (error: Error) => {
+
+export const onReaderDisconnectedWith =
+  (server: FastifyInstance) => (reader: CardReader) => (error?: Error) => {
     if (error) {
       server.log.error(error);
     } else {
       server.log.info(`${reader.name}: disconnected`);
     }
   };
-const onReaderRemovedWith =
+
+export const onReaderRemovedWith =
   (server: FastifyInstance) => (reader: CardReader) => () => () => {
     server.log.info(`${reader.name}: removed`);
   };
-const onStatusChangedWith =
+
+export const onStatusChangedWith =
   (server: FastifyInstance) => (reader: CardReader) => async (status) => {
     const changes = reader.state ^ status.state;
     server.log.info(`${reader.name}: state[${reader.state},${status.state}]`);
@@ -139,7 +147,8 @@ const onStatusChangedWith =
       }
     }
   };
-const onReaderDetectedWith =
+
+export const onReaderDetectedWith =
   (server: FastifyInstance) => (reader: CardReader) => {
     server.log.info(`${reader.name}: detected`);
 
@@ -147,15 +156,14 @@ const onReaderDetectedWith =
     reader.on('status', onStatusChangedWith(server)(reader));
     reader.on('end', onReaderRemovedWith(server)(reader));
   };
-const onReaderErrorWith =
+
+export const onReaderErrorWith =
   (server: FastifyInstance) => (reader: CardReader) => (error: Error) => {
     server.log.error(`${reader.name}: ${error.message}`);
   };
 
-const initializePcsc = (server: FastifyInstance) => {
+export const initializePcsc = (server: FastifyInstance) => {
   const pcsclite = PCSCLite();
 
   pcsclite.on('reader', onReaderDetectedWith(server));
 };
-
-export { initializePcsc };

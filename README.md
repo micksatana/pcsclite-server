@@ -1,5 +1,7 @@
 # PCSC Lite Server
 
+[![codecov](https://codecov.io/gh/micksatana/pcsclite-server/graph/badge.svg?token=6Fzi1Sihkf)](https://codecov.io/gh/micksatana/pcsclite-server)
+
 This server can be deployed on a device connected with a smartcard reader. It will provide a web server serving with the latest card information it read.
 
 ## Implementation
