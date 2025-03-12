@@ -70,17 +70,17 @@ export const ThaiIdCardApduSpec: ApduSpec = {
 
 export const ThaiIdCardApduCommands = ApduCommands(ThaiIdCardApduSpec);
 
-const cleanUpFieldBuffer = (buffer: Buffer) => {
+export const cleanUpFieldBuffer = (buffer: Buffer) => {
   const uncleanedIndex = buffer.indexOf('  ');
 
-  return buffer.subarray(0, uncleanedIndex);
+  return buffer.subarray(0, uncleanedIndex > -1 ? uncleanedIndex : undefined);
 };
 
 /**
  *
  * @param thaiDate date read from Thai ID Card in yyyymmdd format
  */
-const standardizeThaiDate = (thaiDate: string) => {
+export const standardizeThaiDate = (thaiDate: string) => {
   const yyyy = +thaiDate.substring(0, 4) - 543;
   const mm = thaiDate.substring(4, 6).padStart(2, '0');
   const dd = thaiDate.substring(6, 8).padStart(2, '0');
