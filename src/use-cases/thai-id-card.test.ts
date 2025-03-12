@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import {
   cleanUpFieldBuffer,
   scanThaiIdCard,
@@ -176,6 +176,10 @@ describe('scanThaiIdCard', () => {
       expect(card?.dateOfExpiry).toEqual(gDateOfExpiry);
       expect(card?.sex).toEqual(sex);
       expect(card?.issuer).toEqual(issuer);
+    });
+
+    afterAll(() => {
+      vi.restoreAllMocks();
     });
   });
 });
