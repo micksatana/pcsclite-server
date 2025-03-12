@@ -99,7 +99,7 @@ export const onReaderConnectedWith =
   };
 
 export const onReaderDisconnectedWith =
-  (server: FastifyInstance) => (reader: CardReader) => (error: Error) => {
+  (server: FastifyInstance) => (reader: CardReader) => (error?: Error) => {
     if (error) {
       server.log.error(error);
     } else {
